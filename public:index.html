@@ -1,0 +1,26 @@
+<form id="bookingForm">
+  <input type="text" id="name" placeholder="Ваше имя" required>
+  <input type="tel" id="phone" placeholder="Телефон" required>
+  <input type="datetime-local" id="date" required>
+  <button type="submit">Забронировать</button>
+</form>
+
+<script>
+  document.getElementById('bookingForm').onsubmit = async (e) => {
+    e.preventDefault();
+    const data = {
+      name: document.getElementById('name').value,
+      phone: document.getElementById('phone').value,
+      date: document.getElementById('date').value
+    };
+
+    const res = await fetch('/api/book', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    });
+
+    if (res.ok) alert('Заявка отправлена в Telegram!');
+    else alert('Ошибка при отправке');
+  };
+</script>
